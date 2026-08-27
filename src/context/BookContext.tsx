@@ -14,12 +14,14 @@ const BookContext = createContext<BookContextProps | undefined>(
 
 interface BookProviderProps{
     children: ReactNode;
+    initialBooks?: Book[];
 }
 
 export const BookProvider = ({
     children,
+    initialBooks = []
 } : BookProviderProps) => {
-    const [books, setBooks] = useState<Book[]>([]);
+    const [books, setBooks] = useState<Book[]>(initialBooks);
     const addBook = (book: Book) => {
         setBooks((prevBooks) => 
             [...prevBooks, book]
