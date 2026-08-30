@@ -24,8 +24,7 @@ const ConfirmModal = ({ isOpen, title = "Confirm Action", message, onConfirm, on
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="px-4 py-2 text-sm font-medium bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
-                    >
+                        className="px-4 py-2 text-sm font-medium bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"                    >
                         Delete
                     </button>
                 </div>

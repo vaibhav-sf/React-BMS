@@ -159,13 +159,13 @@ const BookForm = ({
   };
 
   const inputClasses: string =
-    "w-full rounded-lg border border-slate-400 bg-slate-100 text-slate-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors";
+    "w-full rounded-lg border border-slate-300 bg-white text-slate-900 px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors";
 
   const labelClasses: string =
-    "block text-sm font-medium text-slate-900 mb-1";
+    "block text-sm font-medium text-slate-800 mb-1.5";
 
   const errorClasses: string =
-    "text-red-400 text-xs mt-1";
+    "text-red-600 text-xs mt-1";
 
   return (
     <form
@@ -243,7 +243,6 @@ const BookForm = ({
         </label>
         <input
           type="date"
-          max={new Date().toISOString().split("T")[0]}
           value={publicationDate}
           onChange={(e) =>
             setPublicationDate(e.target.value)
@@ -352,8 +351,7 @@ const BookForm = ({
       {/* Submit */}
       <button
         type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg px-4 py-2.5 transition-colors cursor-pointer"
-      >
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-4 py-2.5 transition-colors cursor-pointer"      >
         {initialBook
           ? "Update Book"
           : "Add Book"}

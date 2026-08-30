@@ -1,77 +1,77 @@
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X, Bell, User, BookOpen } from "lucide-react";
 
-const navLinks = [
-  { to: "/", label: "Dashboard" },
-  { to: "/books", label: "Books" },
-  { to: "/books/add", label: "Add Book" },
-];
+interface NavbarProps {
+  onMenuClick: () => void;
+  isMobileMenuOpen?: boolean;
+}
 
-const Navbar = () => {
-
-  const location = useLocation();
-  const [mobileOpen, setMobileOpen] = useState(false);
-
+const Navbar = ({ onMenuClick, isMobileMenuOpen = false }: NavbarProps) => {
   return (
-    <nav className="bg-slate-200 border-b border-slate-400 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-14">
+    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
+      <div className="h-16 px-4 sm:px-6 flex items-center justify-between">
+
+        {/* Left side */}
+        <div className="flex items-center gap-3">
+
+          {/* Mobile menu button */}
+          <button
+            onClick={onMenuClick}
+            className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          >
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
 
           {/* Brand */}
           <Link
             to="/"
-            className="text-lg font-bold text-slate-900 tracking-wide"
+            className="flex items-center gap-2 text-lg font-bold text-slate-900 hover:opacity-90 transition-opacity"
           >
-            📚 BMS
+            <BookOpen className="w-6 h-6 text-blue-600" />
+            <span>BMS</span>
           </Link>
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`px-3 py-1.5 rounded-lg text-sm text-white font-medium bg-blue-400 transition-colors ${location.pathname === link.to
-                  ? "bg-blue-600 text-white"
-                  : "text-slate-900 hover:text-slate-900 hover:bg-blue-300"
-                  }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+        </div>
 
-          {/* Mobile toggle */}
+        {/* Right side */}
+        <div className="flex items-center gap-2 sm:gap-4">
+
+          {/* Notification */}
           <button
-            onClick={() =>
-              setMobileOpen(!mobileOpen)
-            }
-            className="md:hidden text-slate-400 hover:text-white p-1 cursor-pointer"
+            className="relative p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label="Notifications"
           >
-            {mobileOpen ? "✕" : "☰"}
+            <Bell size={20} />
+
+            {/* Notification dot */}
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white" />
           </button>
 
-        </div>
-      </div>
+          {/* Divider */}
+          <div className="hidden sm:block h-8 w-px bg-slate-200" />
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden border-t border-slate-200 px-4 py-2 space-y-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setMobileOpen(false)}
-              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${location.pathname === link.to
-                ? "bg-blue-600 text-white"
-                : "text-slate-900 hover:text-slate-900 hover:bg-blue-200"
-                }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {/* Admin */}
+          <div className="flex items-center gap-2">
+
+            <div className="hidden sm:block text-right">
+              <p className="text-sm font-semibold text-slate-900">
+                Admin
+              </p>
+              <p className="text-xs text-slate-500">
+                Administrator
+              </p>
+            </div>
+
+            <div className="w-9 h-9 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0">
+              <User size={18} />
+            </div>
+
+          </div>
+
         </div>
-      )}
+
+      </div>
     </nav>
   );
 };
