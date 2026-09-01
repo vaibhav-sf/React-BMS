@@ -263,4 +263,62 @@ describe("BookForm", () => {
 
     expect(onSubmitBook).not.toHaveBeenCalled();
   });
+
+  test("renders initial book details and 'Update Book' button in edit mode", () => {
+    const onSubmitBook = vi.fn();
+    const existingBook: Book = {
+      id: "1",
+      title: "Ramayana",
+      author: "Valmiki",
+      isbn: "1234567890",
+      publicationDate: "2020-01-01",
+      genre: "Religious",
+      bookType: "printed",
+      size: 500,
+    };
+
+    render(
+      <BookProvider initialBooks={[existingBook]}>
+        <BookForm initialBook={existingBook} onSubmitBook={onSubmitBook} />
+      </BookProvider>,
+    );
+
+    expect(screen.getByLabelText("Book Title")).toHaveValue("Ramayana");
+    expect(screen.getByLabelText("Author")).toHaveValue("Valmiki");
+    expect(screen.getByLabelText("ISBN")).toHaveValue("1234567890");
+    expect(screen.getByRole("button", { name: "Update Book" })).toBeInTheDocument();
+  });
+
+  test("allows keeping existing ISBN when updating book in edit mode", async () => {
+    const onSubmitBook = vi.fn();
+    const existingBook: Book = {
+      id: "1",
+      title: "Ramayana",
+      author: "Valmiki",
+      isbn: "1234567890",
+      publicationDate: "2020-01-01",
+      genre: "Religious",
+      bookType: "printed",
+      size: 500,
+    };
+
+    render(
+      <BookProvider initialBooks={[existingBook]}>
+        <BookForm initialBook={existingBook} onSubmitBook={onSubmitBook} />
+      </BookProvider>,
+    );
+
+    // Click Update Book without changing ISBN
+    await userEvent.click(screen.getByRole("button", { name: "Update Book" }));
+
+    expect(onSubmitBook).toHaveBeenCalledTimes(1);
+    expect(onSubmitBook).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: "1",
+        title: "Ramayana",
+        isbn: "1234567890",
+      }),
+    );
+  });
 });
+
