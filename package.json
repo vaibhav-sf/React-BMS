@@ -12,7 +12,7 @@
     "test:run": "vitest run",
     "coverage": "vitest run --coverage",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "gh-pages -d dist",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
@@ -46,5 +46,6 @@
     "typescript-eslint": "^8.65.0",
     "vite": "^8.2.0",
     "vitest": "^4.1.11"
-  }
+  },
+  "homepage": "https://vaibhav-sf.github.io/React-BMS/"
 }
