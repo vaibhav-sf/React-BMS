@@ -1,77 +1,135 @@
-# React + TypeScript + Vite
+# 📚 Book Management System (React-BMS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive, and robust **Book Management System** built with **React 19**, **TypeScript**, **Vite**, **Tailwind CSS**, and **Vitest + React Testing Library**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌟 Features
 
-## React Compiler
+- 📖 **Book Management**: Create, view, edit, and delete books seamlessly.
+- 🔍 **Filtering & Search**: Live search by title/author and filter by genre.
+- ⚡ **React Context State**: Global management of book records with pre-loaded sample data.
+- 🛡️ **Form Validation**: Full field validation (required inputs, unique ISBN validation, publication date constraints).
+- 🧪 **Comprehensive Test Suite**: Unit tests covering components, forms, validation logic, and state handling.
+- 🚀 **Automated CI/CD**: GitHub Actions workflow for continuous integration and deployment to GitHub Pages.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🏗️ Architecture & Project Structure
 
-## Expanding the ESLint configuration
+The codebase adheres to React best practices, modular organization, and strict TypeScript typing:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+src/
+├── components/          # Reusable UI Components
+│   ├── BookCard.tsx     # Book card display with action handlers
+│   ├── BookForm.tsx     # Validated form for adding & editing books
+│   ├── BookForm.test.tsx# Unit tests for form interactions & validations
+│   ├── BookList.tsx     # List component for rendering filtered books
+│   ├── BookList.test.tsx# Unit tests for BookList rendering & empty state
+│   ├── ConfirmModal.tsx # Delete confirmation modal dialog
+│   ├── GenreFilter.tsx  # Genre dropdown filter
+│   ├── Navbar.tsx       # Top navigation header
+│   └── SearchBar.tsx    # Live search input component
+├── context/             # Global Application State
+│   └── BookContext.tsx  # React Context Provider managing books state
+├── layouts/             # Layout wrappers
+│   └── MainLayout.tsx   # Shell layout with Header & Main content container
+├── pages/               # Application Views / Pages
+│   ├── Books.tsx        # All Books listing view with filter & search
+│   ├── Dashboard.tsx    # Dashboard metrics & summary widgets
+│   ├── AddBook.tsx      # Add New Book page wrapper
+│   ├── EditBook.tsx     # Edit Book page wrapper
+│   ├── BookDetails.tsx  # Individual Book details view
+│   └── NotFound.tsx     # 404 Error page
+├── router.tsx           # React Router configuration
+├── types/               # TypeScript Definitions
+│   └── book.ts          # Book data interfaces & schema definitions
+└── test/                # Test utilities & environment setup
+    ├── ReactTest.test.tsx
+    └── setup.ts         # Testing Library cleanup & matcher extensions
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧪 Testing & Best Practices
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Testing Setup
+- **Framework**: [Vitest](https://vitest.dev/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) & `jsdom`.
+- **Globals**: `describe`, `test`, `expect`, `vi` enabled via `vitest/globals`.
 
+### Test Coverage Highlights
+- **`BookList.test.tsx`**:
+  - Tests rendering of book cards with sample data.
+  - Verifies empty state fallback when no books exist.
+  - Tests custom `books` prop override for filtered search results.
+- **`BookForm.test.tsx`**:
+  - Validates required form fields submission and callback triggering.
+  - Tests automatic form reset after successful creation.
+  - Verifies error message triggers for duplicate ISBN entries.
+  - Verifies error message triggers for future publication dates.
+
+### How to Run Tests
+```bash
+# Run tests synchronously once
+npm run test:run
+
+# Run Vitest in watch mode
+npm run test
+
+# Run tests with UI interface
+npm run test:ui
+
+# Generate test coverage report
+npm run coverage
 ```
+
+---
+
+## 🛠️ Best Practices Implemented
+
+1. **Consistent Naming & Folder Conventions**: PascalCase for React components (`BookForm.tsx`), camelCase for helpers and context hooks (`useBooks`).
+2. **Type Safety**: Strict TypeScript interfaces defined under `src/types/book.ts`.
+3. **Performance Optimization**: Lazy routing, memoized components, and minimal rerenders.
+4. **Accessible UI**: Form labels properly connected (`htmlFor`), ARIA attributes, semantic HTML elements.
+
+---
+
+## 🚀 Getting Started Locally
+
+### Prerequisites
+- **Node.js**: v18.x or higher
+- **npm**: v9.x or higher
+
+### Installation
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/React-BMS.git
+
+# 2. Navigate to project directory
+cd React-BMS
+
+# 3. Install dependencies
+npm install
+
+# 4. Start local dev server
+npm run dev
+```
+
+---
+
+## 🌐 Deploying to GitHub Pages
+
+### Automatic Deployment (GitHub Actions)
+A GitHub Actions workflow is set up in `.github/workflows/deploy.yml`. Pushing changes to `main` automatically runs tests, compiles the production build, and deploys the site to GitHub Pages.
+
+### Manual Deployment via CLI
+```bash
+npm run deploy
+```
+*(This triggers `npm run build` and publishes the `dist` directory to the `gh-pages` branch).*
+
+---
+
+## 📜 License
+This project is open-source under the MIT License.
