@@ -145,7 +145,7 @@ const BookForm = ({ onSubmitBook, initialBook }: BookFormProps) => {
   };
 
   const inputClasses: string =
-    "w-full rounded-lg border border-slate-400 bg-slate-100 text-slate-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors";
+    "w-full rounded-lg border border-slate-300 bg-white text-slate-900 px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors";
 
   const labelClasses: string = "block text-sm font-medium text-slate-900 mb-1";
 

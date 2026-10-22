@@ -1,6 +1,7 @@
 import { useBookContext } from "../context/BookContext";
 import BookCard from "./BookCard";
 import type { Book } from "../types/book";
+import { BookOpen } from "lucide-react";
 
 interface BookListProps {
   books?: Book[];
@@ -15,10 +16,19 @@ const BookList = ({ books: filteredBooks }: BookListProps) => {
   if (booksToShow.length === 0) {
     return (
       <div className="text-center py-16">
-        <div className="text-6xl mb-4">📚</div>
-        <h3 className="text-xl font-semibold text-slate-300 mb-2">
+        <div className="flex justify-center mb-4">
+          <div className="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center">
+            <BookOpen
+              size={28}
+              className="text-blue-600"
+            />
+          </div>
+        </div>
+
+        <h3 className="text-xl font-semibold text-slate-800 mb-2">
           No books found
         </h3>
+
         <p className="text-slate-500">
           Add your first book to get started!
         </p>

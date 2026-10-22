@@ -13,16 +13,15 @@ const BookCard = ({
   onDelete,
 }: BookCardProps) => {
 
-  const [showModel, setShowModel] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleDelete = () => {
     onDelete(book.id);
-    setShowModel(false);
+    setShowModal(false);
   }
 
   return (
-    <div className="bg-white border border-slate-200 rounded-lg p-5 hover:border-slate-600 transition-colors group">
-
+    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md hover:border-slate-300 transition-all group">
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <h3 className="text-lg font-semibold text-black truncate pr-2">
@@ -31,8 +30,8 @@ const BookCard = ({
 
         <span
           className={`shrink-0 text-xs font-medium px-2.5 py-0.5 rounded-full ${book.bookType === "printed"
-            ? "bg-blue-600/20 text-blue-400"
-            : "bg-emerald-600/20 text-emerald-400"
+            ? "bg-blue-50 text-blue-700"
+            : "bg-emerald-50 text-emerald-700"
             }`}
         >
           {book.bookType === "printed"
@@ -64,32 +63,32 @@ const BookCard = ({
       </div>
 
       {/* Actions */}
-      <div className="flex gap-2 pt-3 border-t border-slate-700">
+      <div className="flex flex-wrap sm:flex-nowrap gap-2 pt-4 border-t border-slate-200">
         <Link
           to={`/books/${book.id}`}
-          className="flex-1 text-center text-sm bg-blue-500 hover:bg-blue-700 text-slate-200 rounded-lg px-3 py-1.5 transition-colors"
+          className="flex-1 min-w-[70px] text-center text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-3 py-2 transition-colors"
         >
           View
         </Link>
 
         <Link
           to={`/books/edit/${book.id}`}
-          className="flex-1 text-center text-sm bg-green-500 hover:bg-green-700 text-slate-200 rounded-lg px-3 py-1.5 transition-colors"
+          className="flex-1 min-w-[70px] text-center text-sm font-medium bg-green-600 hover:bg-green-700 text-white rounded-lg px-3 py-2 transition-colors"
         >
           Edit
         </Link>
 
         <button
-          onClick={() => setShowModel(true)}
-          className="flex-1 text-sm bg-red-500 hover:bg-red-700 text-slate-200 rounded-lg px-3 py-1.5 transition-colors cursor-pointer"
+          onClick={() => setShowModal(true)}
+          className="flex-1 min-w-[70px] text-center text-sm font-medium bg-red-600 hover:bg-red-700 text-white rounded-lg px-3 py-2 transition-colors cursor-pointer"
         >
           Delete
         </button>
-        <ConfirmModal isOpen={showModel}
+        <ConfirmModal isOpen={showModal}
           title="Delete Book"
-          message={`Are you sure you want to delete "${book.title}"?.This cannot be undone `}
+          message={`Are you sure you want to delete "${book.title}"? This action cannot be undone.`}
           onConfirm={handleDelete}
-          onCancel={() => setShowModel(false)}
+          onCancel={() => setShowModal(false)}
         />
       </div>
     </div>
